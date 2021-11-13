@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class players {
 
 private int id;
-private ArrayList<token>tokens= new ArrayList<>();
+private ArrayList<Piece>Pieces= new ArrayList<>();
 
 public int getId() {
 	return id;
@@ -17,34 +17,34 @@ public void setId(int id) {
 	this.id = id;
 }
 
-public ArrayList<token> getTokens() {
-	return tokens;
+public ArrayList<Piece> getPieces() {
+	return Pieces;
 }
 
-public void setTokens(ArrayList<token> tokens) {
-	this.tokens = tokens;
+public void setPieces(ArrayList<Piece> Pieces) {
+	this.Pieces = Pieces;
 }
 
 	
-public players(int id, ArrayList<token> tokens) {
+public players(int id, ArrayList<Piece> Pieces) {
 		
 		this.id=id;
-		this.tokens=tokens;
+		this.Pieces=Pieces;
 	
 		
 	}
 	
 	
-public void insert_token(token token) {
-		tokens.add(token);
+public void insert_Piece(Piece Piece) {
+		Pieces.add(Piece);
 	}
 
-public void delete_token(token token) {
+public void delete_Piece(Piece Piece) {
 	
-	for (int i=0;i<tokens.size();i++) {
+	for (int i=0;i<Pieces.size();i++) {
 		
-		if (tokens.get(i)==token) {
-			tokens.remove(i);
+		if (Pieces.get(i)==Piece) {
+			Pieces.remove(i);
 			return;
 		}	
 	}
@@ -52,40 +52,40 @@ public void delete_token(token token) {
 	return;	
 }
 	
-public ArrayList<token>  find_type(int number, String color) {   // utilizaremos el * para indicar culquier color y -1 para cualquier num
-	ArrayList<token> tokens_aux = new ArrayList<>();
-	for (int i=0;i<tokens.size();i++) {
+public ArrayList<Piece>  find_type(int number, String color) {   // utilizaremos el * para indicar culquier color y -1 para cualquier num
+	ArrayList<Piece> Pieces_aux = new ArrayList<>();
+	for (int i=0;i<Pieces.size();i++) {
 		
 		if (number==-1) {
 			
-			if (tokens.get(i).getColor()==color) {
+			if (Pieces.get(i).getColor()==color) {
 				
-				tokens_aux.add(tokens.get(i));
+				Pieces_aux.add(Pieces.get(i));
 			}	
 		}else if(color=="*") {
 			
-			if (tokens.get(i).getNumber()==number) {
+			if (Pieces.get(i).getNumber()==number) {
 				
-				tokens_aux.add(tokens.get(i));
+				Pieces_aux.add(Pieces.get(i));
 			}	
 				
 		}else {
 			
-			if (tokens.get(i).getNumber()==number&& tokens.get(i).getColor()) {
+			if (Pieces.get(i).getNumber()==number &&Pieces.get(i).getColor()==color) {
 				
-				tokens_aux.add(tokens.get(i));
+				Pieces_aux.add(Pieces.get(i));
 			}	
 		}
 			
 	}
 	
-	return tokens_aux;
+	return Pieces_aux;
 }	
 	
 
-public int  get_number_of_tokens(){  // mas que nada para actualizar en la interfaz
+public int  get_number_of_Pieces(){  // mas que nada para actualizar en la interfaz
 	
-	return tokens.size();
+	return Pieces.size();
 	
 	
 }	
