@@ -1,7 +1,7 @@
 # alpha-zero-java
 Java immplementation of apha-zero to play rummikub.
 
-## [**Google Colab**](https://colab.research.google.com/drive/1uaCN-p7BUJ9gNmrxUrwxkhLZhgKvA4kH?usp=sharing)
+ -[**Google Colab**](https://colab.research.google.com/drive/1uaCN-p7BUJ9gNmrxUrwxkhLZhgKvA4kH?usp=sharing)
 
  - **Algorithm v0:**
 	 - **Input:** 
