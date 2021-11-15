@@ -10,13 +10,13 @@ Java immplementation of apha-zero to play rummikub.
 	 - **Output**: 	
 			 - With head one, the probability of winning from the actual
 	   state. 
-			 - Head two + Grouping, the probability of winning for every    posible
+			 - Head two + Grouping, the probability of winning for every posible
 	   action.
-			 - ![Rummikub_algorithm](Rummikub_algorithm.drawio-2.png)
+	![Rummikub_algorithm](Rummikub_algorithm.drawio-2.png)
 
  - **The grouping problem:**
 	 - From a set of [4,12] chips, get the valid agrupation with the biggest score possible.
-	 - ![group_algorithm](group_algorithm.png)
+	![group_algorithm](group_algorithm.png)
 
  - **Dataset generation:** 	
 	 - Playing random games and back propagating 1 if
