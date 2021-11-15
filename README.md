@@ -1,8 +1,6 @@
 # alpha-zero-java
 Java immplementation of apha-zero to play rummikub.
 
-**
-
  - **Algorithm v0:**
 	 - **Input:** 
 			 - actual board, as a matrix of 1 and 0, where there is a chip.
@@ -29,5 +27,3 @@ Java immplementation of apha-zero to play rummikub.
 	 - Second head can be trained by transfer-learning from the    first
 	   one, also, can be trained with the actions taken by previous winner
 	   agents.
-
-**
