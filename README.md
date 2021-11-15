@@ -12,7 +12,8 @@ Java immplementation of apha-zero to play rummikub.
 	   state. 
 			 - Head two + Grouping, the probability of winning for every posible
 	   action.
-	![Rummikub_algorithm](Rummikub_algorithm.drawio-2.png)
+
+![Rummikub_algorithm](Rummikub_algorithm.drawio-2.png)
 
  - **The grouping problem:**
 	 - From a set of [4,12] chips, get the valid agrupation with the biggest score possible.
