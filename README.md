@@ -1,6 +1,8 @@
 # alpha-zero-java
 Java immplementation of apha-zero to play rummikub.
 
+# [**Google Colab**](https://colab.research.google.com/drive/1uaCN-p7BUJ9gNmrxUrwxkhLZhgKvA4kH?usp=sharing)
+
  - **Algorithm v0:**
 	 - **Input:** 
 			 - actual board, as a matrix of 1 and 0, where there is a chip.
