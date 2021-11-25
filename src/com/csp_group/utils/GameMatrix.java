@@ -2,10 +2,6 @@ package com.csp_group.utils;
 import java.util.*;
 import java.util.BitSet;
 
-import org.la4j.Matrix;
-import org.la4j.matrix.dense.Basic1DMatrix;
-
-
 public class GameMatrix {
 	private BitSet bit_list;
 	
@@ -170,27 +166,6 @@ public class GameMatrix {
 	
 	public static int getValue(GameMatrix matrix) {
 		return matrix.bit_list.cardinality();
-	}
-	
-	public static int getValue(GameMatrix matrix, double[] costArray) {
-		if(costArray == null) {
-			return getValue(matrix);
-		}
-		Matrix costMatrix = new Basic1DMatrix(1,costArray.length,costArray);
-		double[] matrixArr = bitsetToDoubleArr(matrix.bit_list, costArray.length);
-
-		Matrix originalsMatrix = new Basic1DMatrix(matrixArr.length,1,matrixArr);
-		return (int)(costMatrix.multiply(originalsMatrix).sum()*100);
-	}
-	
-	private static double[] bitsetToDoubleArr(BitSet set, int size) {
-		double[] arr = new double[size];
-		
-		for(int i = 0; i < set.length(); i++) {
-			arr[i] =(double) (set.get(i)? 1 : 0);
-		}
-		
-		return arr;
 	}
 	
 	public String toString() {

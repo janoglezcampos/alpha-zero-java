@@ -126,10 +126,6 @@ public class GroupAlgorithm {
 			System.out.println(arg);
 		}
 	}
-
-	private List<Conflict> getConflictList(GameMatrix runs, GameMatrix groups) {
-		return getConflictList(runs, groups, null);
-	}
 	
 	private List<Conflict> getConflictList(GameMatrix runs, GameMatrix groups, GameMatrix boardConflicts) {
 		GameMatrix conflictMatrix = getConflictMatrix(runs,groups);
@@ -158,8 +154,6 @@ public class GroupAlgorithm {
 	{
 		GameMatrix new_runs, new_groups;
 		Conflict conflict;
-		int new_node_value = 0;
-		int best_node_value = 0;
 		
 		nConflict = getNextConflict(runs,groups,nConflict);
 		
