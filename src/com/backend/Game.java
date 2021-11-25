@@ -13,7 +13,7 @@ public class Game {
 	*/
 	
 private ArrayList<players> players;
-private ArrayList<token> enable_tokens;
+//private ArrayList<token> enable_tokens;
 private int number_players;//// la interfaz gr�fica deber� inicilizarlo.
 
 
@@ -25,12 +25,12 @@ public Game() {
 private void setPlayer(int number ) {  // se llamra desde la interfaz 
 	for (int i=0; i<number; i++) {
 		
-		players.add(new players(i,dealer()));
+		//players.add(new players(i,dealer()));
 		
 	}	
 }
 
-        
+/*
 private ArrayList<token> dealer() {
 	
 	ArrayList<token> random= new ArrayList<>();
@@ -45,6 +45,7 @@ private ArrayList<token> dealer() {
 	
 	return random;	
 }
+*/
 
 
 
