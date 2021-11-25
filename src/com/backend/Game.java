@@ -1,4 +1,4 @@
-package backend;
+package com.backend;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ public class Game {
 	
 private ArrayList<players> players;
 private ArrayList<token> enable_tokens;
-private int number_players;//// la interfaz gráfica deberá inicilizarlo.
+private int number_players;//// la interfaz grï¿½fica deberï¿½ inicilizarlo.
 
 
 public Game() {
