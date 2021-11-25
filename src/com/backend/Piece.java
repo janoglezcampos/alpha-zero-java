@@ -1,4 +1,4 @@
-package psiC;
+package com.backend;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class Piece implements java.lang.Comparable<Piece>{
 		this.joker = joker;
 	}
 	public Piece(boolean canBeJoker){// PARA QUE ESTA FUNCION??
-		if(canBeJoker) joker = (5<Math.random()*9) ? true:false;  // será menor apartir de 0,5 incluido.
+		if(canBeJoker) joker = (5<Math.random()*9) ? true:false;  // serï¿½ menor apartir de 0,5 incluido.
 		if (!joker){
 			this.joker = false;
 			this.color = (short)(Math.random()*4); // 0.0-0.999999999 es lo que da random 
@@ -47,7 +47,7 @@ public class Piece implements java.lang.Comparable<Piece>{
 		byte bNumber = (byte) this.number;
 		
 		return bNumber |= (bColor << 6); //  | es un or la expresion se lee igual que un +=; el<< desplaza bits ala izquierda el numero acordado.
-	}										// debería ser un 4 no un 6 
+	}										// deberï¿½a ser un 4 no un 6 
 
 	public String toString(){
 		if(this.joker) return "Pieza{Joker}";
