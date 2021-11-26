@@ -14,6 +14,7 @@ public class GroupAlgorithm {
 	//private double[] scoreMatrix;
 	private int[] score_matrix;
 	private int maxScore;
+	public Set<BitSet> validStates = new LinkedHashSet<BitSet>();
 	
 	public GroupAlgorithm(BitSet board_bitset, BitSet deck_bitset) {
 		this(board_bitset, deck_bitset,false);
@@ -47,7 +48,7 @@ public class GroupAlgorithm {
 		this.score_matrix = score_matrix;
 		for(int i = 0; i < score_matrix.length; i++){
 			score_matrix[i] *=(this.deck.getBitList().get(i)) ? 1:0;
-			score_matrix[i] =(this.board.getBitList().get(i)) ? 1:score_matrix[i];
+			//score_matrix[i] =(this.board.getBitList().get(i)) ? 1:score_matrix[i];
 		}
 		this.maxScore = (score_matrix != null) ? sumArr(score_matrix) : 0;
 
@@ -145,19 +146,20 @@ public class GroupAlgorithm {
 	private List<Conflict> getConflictList(GameMatrix runs, GameMatrix groups, GameMatrix boardConflicts) {
 		GameMatrix conflictMatrix = getConflictMatrix(runs,groups);
 		
-		GameMatrix newConflicts = conflictMatrix.andNot(boardConflicts);
+		GameMatrix newConflicts = conflictMatrix.and(deck);
 		
 		debug("** Conflict matrix: \n" + conflictMatrix);
 		List<Conflict> cTmp = new LinkedList<Conflict>();
-		
+
+		Collections.sort(cTmp);
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 13; j++) {
 				if(conflictMatrix.getBit(i, j)) {
-					cTmp.add(new Conflict(i,j));
+					cTmp.add(new Conflict(i,j, newConflicts.getBit(i, j)));
 				}
 			}
 		}
-		//Collections.sort(cTmp);
+		Collections.sort(cTmp);
 		return cTmp;
 	}
 	
@@ -177,6 +179,7 @@ public class GroupAlgorithm {
 			//System.out.println(runs.or(groups));
 			//int value = GameMatrix.getValue(runs.or(groups));
 			int value = maxScore - runs.lostScore - groups.lostScore;
+			validStates.add(runs.or(groups).getBitList());
 			if(value > this.best_value) {
 				this.best_value = value;
 				this.best_solution = runs.or(groups);
@@ -188,26 +191,31 @@ public class GroupAlgorithm {
 		conflict = conflictList.get(nConflict);
 		
 		
-		new_runs = removeRuns(conflict,runs,groups);
+		
 		//debug("\n** New runs: " + new_runs);
 		
-		int runStateLostScore =  new_runs.lostScore - runs.lostScore;
-		int groupStateLostScore =  100000;
-		if(new_runs.getValid()) {
-			runStateLostScore += solveConflicts(new_runs, groups,nConflict);
-		}
-		else {
-			runStateLostScore = 100000;
-		}
+
+		new_groups = removeGroups(conflict,runs,groups);
+		new_runs = removeRuns(conflict,runs,groups);
 		
-		if(runStateLostScore != 0) {
-			new_groups = removeGroups(conflict,runs,groups);
-			groupStateLostScore = new_groups.lostScore - groups.lostScore;
-			//debug("\n** New groups: " + new_groups);
+		int groupStateLostScore = new_groups.lostScore - groups.lostScore;
+		int runStateLostScore =  new_runs.lostScore - runs.lostScore;
+		
+		//debug("\n** New groups: " + new_groups);
+		if((maxScore-new_groups.lostScore) > best_value) {
 			if(new_groups.getValid()) {
 				groupStateLostScore += solveConflicts(runs, new_groups,nConflict);
 			}else{
 				groupStateLostScore = 100000;
+			}
+		}
+		
+		if((maxScore-new_runs.lostScore) > best_value) {
+			if(new_runs.getValid()) {
+				runStateLostScore += solveConflicts(new_runs, groups,nConflict);
+			}
+			else {
+				runStateLostScore = 100000;
 			}
 		}
 
