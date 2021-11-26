@@ -23,10 +23,10 @@ public class GroupAlgorithmTest {
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_1 = {
-							0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 							};
 
 		@SuppressWarnings("unused")
@@ -34,19 +34,19 @@ public class GroupAlgorithmTest {
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_2 = {
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0,
+							1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 							};
 		@SuppressWarnings("unused")
 		int[] deck_bitset_2 = {
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 							};
@@ -108,7 +108,7 @@ public class GroupAlgorithmTest {
 		System.out.println("\n** Valid states: \n");
 		
 		for(BitSet state : alg.validStates) {
-			System.out.println(new GameMatrix(state));
+			//System.out.println(new GameMatrix(state));
 		}
 	}
 	
