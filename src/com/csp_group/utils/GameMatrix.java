@@ -42,7 +42,7 @@ public class GameMatrix {
 		this.k = copy.k;
 		this.m = copy.m;
 		this.valid = copy.valid;
-		
+		this.lostScore = copy.lostScore;
 		this.bit_list = (BitSet) copy.bit_list.clone();
 	}
 	
@@ -53,7 +53,7 @@ public class GameMatrix {
 	public void setValid(boolean v) {
 		this.valid = v;
 	}
-	
+
 	public BitSet getBitList(){
 		return bit_list;
 	}
