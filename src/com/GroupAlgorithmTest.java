@@ -8,7 +8,7 @@ public class GroupAlgorithmTest {
 		
 		@SuppressWarnings("unused")
 		int[] board_bitset_0 = {
-							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -33,8 +33,23 @@ public class GroupAlgorithmTest {
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1
 							};
+		@SuppressWarnings("unused")
+		int[] board_bitset_2 = {
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+							};
+		@SuppressWarnings("unused")
+		int[] deck_bitset_2 = {
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+							};
+
 		@SuppressWarnings("unused")
 		double[] score = {
 				2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -87,7 +102,7 @@ public class GroupAlgorithmTest {
 		
 		System.out.printf("\n** Found all  terminal nodes in: %.2fms\n", alg.getRun_execution_time());
 	
-		System.out.println("\n** Best solution with value "+alg.getBestValue()  +": " + alg.getResults());
+		System.out.println("\n** Best solution with value "+alg.getBestValue()  +": \n" + alg.getResults());
 	}
 	
 	private static BitSet listToBitset(int[] list) {

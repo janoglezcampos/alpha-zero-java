@@ -31,13 +31,20 @@ public class GroupAlgorithm {
 	
 	public GroupAlgorithm(GameMatrix board, GameMatrix deck, int[] score_matrix,boolean verbose) {
 		this.board = board;
+		this.best_solution = board;
+		this.best_value = 0;
 		this.deck = deck;
 		this.verbose = verbose;
 		this.setup_execution_time = 0;
 		this.setup_execution_time = 0;
 		//this.scoreMatrix = scoreMatrix;
 		this.score_matrix = score_matrix;
+		for(int i = 0; i < score_matrix.length; i++){
+			score_matrix[i] *=(deck.getBitList().get(i)) ? 1:0;
+		}
 		this.maxScore = (score_matrix != null) ? sumArr(score_matrix) : 0;
+
+		this.maxScore = ((this.maxScore > 0)? 1:0) * this.maxScore;
 		
 		/*
 		if(verbose) {
@@ -163,7 +170,6 @@ public class GroupAlgorithm {
 			//int value = GameMatrix.getValue(runs.or(groups));
 			//System.out.println(value);
 			int value = maxScore - runs.lostScore - groups.lostScore;
-			//System.out.println("********** Terminal node ********** " + value);
 			if(value > this.best_value) {
 				this.best_value = value;
 				this.best_solution = runs.or(groups);
