@@ -2,16 +2,17 @@ package com;
 import java.util.BitSet;
 
 import com.csp_group.GroupAlgorithm;
+import com.csp_group.utils.GameMatrix;
 
 public class GroupAlgorithmTest {
 	public static void main(String[] args) {
 		
 		@SuppressWarnings("unused")
 		int[] board_bitset_0 = {
-							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+							0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0
 							};
 		@SuppressWarnings("unused")
 		int[] deck_bitset_0 = {
@@ -22,18 +23,18 @@ public class GroupAlgorithmTest {
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_1 = {
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+							0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+							0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 							};
 
 		@SuppressWarnings("unused")
 		int[] deck_bitset_1 = {
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_2 = {
@@ -103,6 +104,12 @@ public class GroupAlgorithmTest {
 		System.out.printf("\n** Found all  terminal nodes in: %.2fms\n", alg.getRun_execution_time());
 	
 		System.out.println("\n** Best solution with value "+alg.getBestValue()  +": \n" + alg.getResults());
+		
+		System.out.println("\n** Valid states: \n");
+		
+		for(BitSet state : alg.validStates) {
+			System.out.println(new GameMatrix(state));
+		}
 	}
 	
 	private static BitSet listToBitset(int[] list) {
