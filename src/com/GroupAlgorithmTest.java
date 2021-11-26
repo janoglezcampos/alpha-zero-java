@@ -8,9 +8,9 @@ public class GroupAlgorithmTest {
 		
 		@SuppressWarnings("unused")
 		int[] board_bitset_0 = {
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 							};
 		@SuppressWarnings("unused")
@@ -22,18 +22,18 @@ public class GroupAlgorithmTest {
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_1 = {
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0
 							};
 
 		@SuppressWarnings("unused")
 		int[] deck_bitset_1 = {
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_2 = {
@@ -68,7 +68,7 @@ public class GroupAlgorithmTest {
 		int[] int_score = {
 				92 ,33 ,62 ,58 ,37 ,78 ,14 ,41 ,39 ,99 ,30 ,17 ,88,
 				40 ,12 ,74 ,64 ,55 ,71 ,48 ,97 ,94 ,19 ,63 ,34 ,32,
-				10 ,93 ,90 ,63 ,02 ,38 ,97 ,81 ,37 ,50 ,42 ,80 ,46,
+				10 ,93 ,90 ,63 ,02 ,38 ,97 ,81 ,37 ,50 ,42 ,50 ,20,
 				22 ,10 ,51 ,30 ,10 ,24 ,64 ,29 ,48 ,34 ,41 ,17 ,35
 		};
 		
@@ -90,8 +90,8 @@ public class GroupAlgorithmTest {
 		//GameMatrix deck_score_mat = new GameMatrix(listToBitset(deck_score));
 		//System.out.println("** Test score: " + GameMatrix.getValue(deck_score_mat, decimal_score));
 		
-		int[] board_bitset = board_bitset_1;
-		int[] deck_bitset = deck_bitset_1;
+		int[] board_bitset = deck_bitset_2;
+		int[] deck_bitset = board_bitset_2;
 		
 		System.out.println("** Running test **");
 
