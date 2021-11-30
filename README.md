@@ -14,21 +14,24 @@ Java immplementation of apha-zero to play rummikub.
 	   state. 
 			 - Head two + Grouping, the probability of winning for every posible action.
 
-![Rummikub_algorithm](Rummikub_algorithm.drawio-2.png)
+![Rummikub_algorithm](doc_images/Rummikub_algorithm.drawio-2.png)
 
  - **The grouping problem:**
 	 - From a set of [4,12] chips, get the valid agrupation with the biggest score possible.
-	![group_algorithm](group_algorithm.png)
+	![group_algorithm](doc_images/group_algorithm.png)
 	 - **First approach:**
 		 - This method was discarded cause the big computational resources needed to get all possible combinations of all runs and groups, making it really inefficient.
 	 - **Second approach:**
 		 - **CSP** (Constraint satisfaction problems) with backpropagation.
 		 - We can see this grouping problem as a constraint satisfaction, where we have to chose to play some runs or groups, based on its restrictions, this means, that we gonna check only those tiles that represent a conflict (a tile that can form either a run or a group, but not both).
+		 ![CSP_basis](doc_images/CSP_basis.png)
 		 - Example, imagine an empty table and a deck **{{1,black},{2,black},{3,black},{1,orange},{1,blue},{3,blue}}**, this means you can form a run or a group in the table, but how do we find that? We check conflict by conflict, solving the restrictions and removing invalid new states:
+		 ![CSP_solving_basis](doc_images/CSP_solving_basis.png)
 		 - Problems and improvements:
 			 - Applying forward checking:
 				 - There are cases where conflicts are inter-dependent, this means that solving a conflict, can solve other conflicts. In our first approach, we will check each initial conflict, even if they are already solved by the selections done throw the tree.
 				 - Example, imagine having on the table **{{1,black},{1,red},{1,orange},{1, blue},{3,black},{3,red},{3,orange},{3, blue}}** and a deck with {{2,black}}, so we have 2 color groups on the table, and we can form one run.
+				 ![CSP_forward_checking](doc_images/CSP_forward_checking.png)
 		 - **CSOP** (Constraint satisfaction optimization problems).
 		 - CSP give us all the possible solutions to our problem, but, having an heuristic allow us to solve it with an informed algorithm, with better search methods.  
 		-   CSOP tries to get the maximize/minimize the value of the terminal nodes, looking for the one with the biggest value.
@@ -50,6 +53,7 @@ Java immplementation of apha-zero to play rummikub.
 	-   Getting P(S) involves modifying our grouping algorithm, that was developed with an exploitation use in mind, but learning from self play, involves exploration to check if actions with low scores (erroneous predictions of our net during training), can lead to good game results. This means adding a threshold to our CSOP branch prune, so we can get suboptimal combinations, and storing the different combinations along with their score. P(S) will contain only the score of each calculated combination that can be explored.
 	-   Coming back from a modified P(S) to the tile score matrix:
 		- The value of each P(S,a) represent the sum of all tiles used in the next state given by an action, so modifying the value of a combination will lead to modify the value of some tiles, without modifying other P(S,a).
+		![Updating_P(s)](doc_images/Updating_P(s).png)
 	- {TODO: Updating P(S)}
 	- Simplified example of MTCS over one node, updating score matrix based on the new P(S) policy vector:
 
