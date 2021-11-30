@@ -56,4 +56,4 @@ Java immplementation of apha-zero to play rummikub.
 		![Updating_P(s)](doc_images/Updating_P(s).png)
 	- {TODO: Updating P(S)}
 	- Simplified example of MTCS over one node, updating score matrix based on the new P(S) policy vector:
-
+		![Generating_P(S)_example](doc_images/Generating_P(S)_example.png)
