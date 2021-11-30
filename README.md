@@ -18,8 +18,8 @@ Java immplementation of apha-zero to play rummikub.
 
  - **The grouping problem:**
 	 - From a set of [4,12] chips, get the valid agrupation with the biggest score possible.
-	![group_algorithm](doc_images/group_algorithm.png)
 	 - **First approach:**
+	![group_algorithm](doc_images/group_algorithm.png)
 		 - This method was discarded cause the big computational resources needed to get all possible combinations of all runs and groups, making it really inefficient.
 	 - **Second approach:**
 		 - **CSP** (Constraint satisfaction problems) with backpropagation.
