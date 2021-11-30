@@ -1,5 +1,9 @@
 package com;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.csp_group.GroupAlgorithm;
 import com.csp_group.utils.GameMatrix;
@@ -9,24 +13,24 @@ public class GroupAlgorithmTest {
 		
 		@SuppressWarnings("unused")
 		int[] board_bitset_0 = {
-							0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-							0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0
+							0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0
 							};
 		@SuppressWarnings("unused")
 		int[] deck_bitset_0 = {
-							1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+							1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 							1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 							1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-							0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+							0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 							};
 		@SuppressWarnings("unused")
 		int[] board_bitset_1 = {
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+							1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0
 							};
 
 		@SuppressWarnings("unused")
@@ -91,12 +95,13 @@ public class GroupAlgorithmTest {
 		//GameMatrix deck_score_mat = new GameMatrix(listToBitset(deck_score));
 		//System.out.println("** Test score: " + GameMatrix.getValue(deck_score_mat, decimal_score));
 		
-		int[] board_bitset = deck_bitset_2;
-		int[] deck_bitset = board_bitset_2;
+		int[] board_bitset = board_bitset_2;
+		int[] deck_bitset = deck_bitset_2;
 		
 		System.out.println("** Running test **");
 
 		GroupAlgorithm alg = new GroupAlgorithm(listToBitset(board_bitset),listToBitset(deck_bitset),int_score,true);
+		alg.setThreshold(100);
 		alg.run();
 		
 		System.out.printf("\n** Found all runs, groups and conflicts in: %.2fms\n", alg.getSetup_execution_time());
@@ -107,9 +112,38 @@ public class GroupAlgorithmTest {
 		
 		System.out.println("\n** Valid states: \n");
 		
-		for(BitSet state : alg.validStates) {
-			//System.out.println(new GameMatrix(state));
+		List<Double> values = alg.validValues;
+		int i = 0;
+		for(BitSet state:alg.validStates) {
+			System.out.println(new GameMatrix(state));
+			System.out.println("Value: " + values.get(i));
+			i++;
 		}
+		
+		System.out.println("N valid actions: " + alg.validStates.size());
+	}
+	public class Action{
+		public Double value;
+		public BitSet newState;
+		
+		public Action(Double double1, BitSet set) {
+			this.value = double1;
+			this.newState = set;
+		}
+	}
+	private List<Action> getPolicyArray(int[] board_bitset, int[] deck_bitset, int[] score_matrix) {
+		GroupAlgorithm alg = new GroupAlgorithm(listToBitset(board_bitset),listToBitset(deck_bitset),score_matrix,false);
+		alg.setThreshold(100);
+		alg.run();
+		List<Action> action_list = new ArrayList<Action>();
+		List<Double> values = alg.validValues;
+		int i = 0;
+		for(BitSet state:alg.validStates) {
+			action_list.add(new Action(values.get(i), state));
+			i++;
+		}
+		
+		return action_list;
 	}
 	
 	private static BitSet listToBitset(int[] list) {
