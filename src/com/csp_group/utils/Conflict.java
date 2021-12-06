@@ -22,7 +22,7 @@ public class Conflict implements Comparable<Conflict> {
 	}
 	
 	public String toString() {
-		return '['+Integer.toString(row)+','+Integer.toString(column)+']';
+		return '['+Integer.toString(row)+','+Integer.toString(column)+"] "+this.isNewConflict;
 	}
 
 	@Override
