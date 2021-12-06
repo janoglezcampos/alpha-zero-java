@@ -1,13 +1,11 @@
-package com.backend;
-
-import java.util.ArrayList;
-
+package psiC;
 
 
 public class players {
 
 private int id;
-private ArrayList<Piece>Pieces= new ArrayList<>();
+private short [] [] Pieces= new short [4] [13];
+//private short [] [] Pieces_temp= new short [4] [13];
 
 public int getId() {
 	return id;
@@ -17,84 +15,59 @@ public void setId(int id) {
 	this.id = id;
 }
 
-public ArrayList<Piece> getPieces() {
+public short [] []getPieces() {
 	return Pieces;
 }
 
-public void setPieces(ArrayList<Piece> Pieces) {
+public void setPieces(short [] [] Pieces) {
 	this.Pieces = Pieces;
 }
 
 	
-public players(int id, ArrayList<Piece> Pieces) {
-		
+public players(int id,short [] [] Pieces) {
 		this.id=id;
-		this.Pieces=Pieces;
-	
-		
+		this.Pieces=Pieces;	
 	}
 	
 	
-public void insert_Piece(Piece Piece) {
-		Pieces.add(Piece);
+public void insert_Piece(short [] e ) {
+		Pieces[e[0]] [e[1]]=1;
 	}
 
-public void delete_Piece(Piece Piece) {
+public void delete_Piece(short i,short j ) {
 	
-	for (int i=0;i<Pieces.size();i++) {
-		
-		if (Pieces.get(i)==Piece) {
-			Pieces.remove(i);
-			return;
-		}	
+		Pieces [i] [j]=0;
+}
+
+public void delete_Pieces(short [][] mano ) { //por ahora no se utiliza
+	for (int i=0;i<4; i++) {
+		for (int j=0;j<13; j++) {
+			if(mano[i][j]==1) {
+				Pieces[i][j]=0;
+			}
+		}
 	}
-	
-	return;	
 }
 	
-public ArrayList<Piece>  find_type(int number, String color) {   // utilizaremos el * para indicar culquier color y -1 para cualquier num
-	ArrayList<Piece> Pieces_aux = new ArrayList<>();
-	for (int i=0;i<Pieces.size();i++) {
 		
-		if (number==-1) {
-			
-			if (Pieces.get(i).getColor()==color) {
-				
-				Pieces_aux.add(Pieces.get(i));
-			}	
-		}else if(color=="*") {
-			
-			if (Pieces.get(i).getNumber()==number) {
-				
-				Pieces_aux.add(Pieces.get(i));
-			}	
-				
-		}else {
-			
-			if (Pieces.get(i).getNumber()==number &&Pieces.get(i).getColor()==color) {
-				
-				Pieces_aux.add(Pieces.get(i));
-			}	
-		}
-			
-	}
+public void updatePieces() {
 	
-	return Pieces_aux;
-}	
 	
+	
+}
 
 public int  get_number_of_Pieces(){  // mas que nada para actualizar en la interfaz
 	
-	return Pieces.size();
+	int total=0;
 	
+	for (int i=0;i<4; i++) {
+		for (int j=0;j<13; j++) {
+			total+=Pieces[i][j];
+		}
+	}
+	return total;
 	
 }	
-	
-	
-	
-	
-	
-	
 	
 	
 }
