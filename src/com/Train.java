@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import com.csp_group.utils.Arguments;
 import com.mcts.Coach;
 import com.mcts.Nnet;
-import com.backend.Game;
+import com.logic.Game;
 
 public class Train {
 	private static Logger log = Logger.getLogger(Train.class.getName());

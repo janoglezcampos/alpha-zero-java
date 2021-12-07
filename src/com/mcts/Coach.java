@@ -3,7 +3,7 @@ package com.mcts;
 import java.util.*;
 import java.util.logging.Logger;
 
-import com.backend.*;
+import com.logic.*;
 import com.csp_group.utils.*;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import java.io.*;
@@ -11,16 +11,19 @@ import java.nio.file.*;
 
 import me.tongfei.progressbar.*;
 
+/**
+ * This class executes the self-play + learning. It uses the functions defined
+ * in Game and NeuralNet. args are specified in Arguments.java
+ * 
+ * @author Alejandro Campos
+ *
+ */
 public class Coach {
-	/*
-	 * This class executes the this-play + learning. It uses the functions public
-	 * voidined in Game and NeuralNet. args are specified in main.py.
-	 */
 	private Game game;
 	private Nnet nnet;
 	private Nnet pnet;
 	private Arguments args;
-	private Boolean skipFirstthisPlay;
+	private boolean skipFirstthisPlay;
 	private LinkedList<TrainExample> trainExamplesHistory;
 	private int curPlayer;
 	private MCTS mcts;
@@ -41,20 +44,21 @@ public class Coach {
 		this.curPlayer = 1;
 	}
 
+	/**
+	 * This function executes one episode of this-play, starting with player 1. As
+	 * the game is played, each turn is added as a training example to
+	 * trainExamples. The game is played till the game ends. After the game ends,
+	 * the outcome of the game is used to assign values to each example in
+	 * trainExamples.
+	 * 
+	 * It uses a temp=1 if episodeStep is smaller than tempThreshold, and thereafter uses temp=0.
+	 * 
+	 * @return trainExamples: a list of examples of the form (canonicalBoard,
+	 *         currPlayer, pi,v) pi is the MCTS informed policy vector, v is +1 if
+	 *         the player eventually won the game, else -1.
+	 */
 	public List<TrainExample> executeEpisode() {
-		/*
-		 * This function executes one episode of this-play, starting with player 1. As
-		 * the game is played, each turn is added as a training example to
-		 * trainExamples. The game is played till the game ends. After the game ends,
-		 * the outcome of the game is used to assign values to each example in
-		 * trainExamples.
-		 * 
-		 * It uses a temp=1 if episodeStep < tempThreshold, and thereafter uses temp=0.
-		 * 
-		 * Returns: trainExamples: a list of examples of the form (canonicalBoard,
-		 * currPlayer, pi,v) pi is the MCTS informed policy vector, v is +1 if the
-		 * player eventually won the game, else -1.
-		 */
+
 		List<TrainExample> trainExamples = new LinkedList<TrainExample>();
 		GameMatrix board = this.game.getInitBoard();
 		this.curPlayer = 1;
@@ -84,14 +88,14 @@ public class Coach {
 		}
 	}
 
+	/**
+	 * Performs numIters iterations with numEps episodes of this-play in each
+	 * iteration. After every iteration, it retrains neural network with examples in
+	 * trainExamples (which has a maximum length of maxlenofQueue). It then pits the
+	 * new neural network against the old one and accepts it only if it wins more than
+	 * updateThreshold fraction of games.
+	 */
 	public void learn() {
-		/*
-		 * Performs numIters iterations with numEps episodes of this-play in each
-		 * iteration. After every iteration, it retrains neural network with examples in
-		 * trainExamples (which has a maximum length of maxlenofQueue). It then pits the
-		 * new neural network against the old one and accepts it only if it wins >=
-		 * updateThreshold fraction of games.
-		 */
 		for (int i = 0; i < this.args.numIters + 1; i++) {
 			// bookkeeping examples of the iteration
 
@@ -127,24 +131,25 @@ public class Coach {
 
 			// shuffle examples before training
 			LinkedList<TrainExample> trainExamples = new LinkedList<TrainExample>(trainExamplesHistory);
-			/*TODO
-			 * for(TrainExample e : this.trainExamplesHistory) { trainExamples.addAll(e); }
+			/*
+			 * TODO for(TrainExample e : this.trainExamplesHistory) {
+			 * trainExamples.addAll(e); }
 			 */
 			Collections.shuffle(trainExamples);
 			// training new network, keeping a copy of the old one
 			this.nnet.save_checkpoint(this.args.checkpoint, "temp.pth.tar");
 			this.pnet.load_checkpoint(this.args.checkpoint, "temp.pth.tar");
-			//MCTS pmcts = new MCTS(this.game, this.pnet, this.args);
+			// MCTS pmcts = new MCTS(this.game, this.pnet, this.args);
 
 			this.nnet.train(trainExamples);
-			//MCTS nmcts = new MCTS(this.game, this.nnet, this.args);
+			// MCTS nmcts = new MCTS(this.game, this.nnet, this.args);
 
 			log.info("PITTING AGAINST PREVIOUS VERSION");
-			
+
 			Player p1 = new Player(this.game, this.pnet, this.args);
 			Player p2 = new Player(this.game, this.nnet, this.args);
-			
-			Arena arena = new Arena(p1,p2,this.game);
+
+			Arena arena = new Arena(p1, p2, this.game);
 			int[] returnList;
 
 			int pwins = 0, nwins = 0, draws = 0;
@@ -152,7 +157,7 @@ public class Coach {
 			pwins = returnList[0];
 			nwins = returnList[1];
 			draws = returnList[2];
-			
+
 			log.info(String.format("NEW/PREV WINS : %d / %d ; DRAWS : %d", nwins, pwins, draws));
 			if ((pwins + nwins == 0) || (nwins / (pwins + nwins) < this.args.updateThreshold)) {
 				log.info("REJECTING NEW MODEL");
@@ -165,10 +170,22 @@ public class Coach {
 		}
 	}
 
+	/**
+	 * Generate checkpoint filename
+	 * 
+	 * @param iteration: number to generate the file name
+	 * @return filename
+	 */
 	public String getCheckpointFile(int iteration) {
 		return "checkpoint_" + iteration + ".pth.tar";
 	}
 
+	/**
+	 * Saves current training history to binary file with name
+	 * "checkpoint_i.pth.tar.examples"
+	 * 
+	 * @param iteration: number to generate the file name
+	 */
 	public void saveTrainExamples(int iteration) {
 		String folder = this.args.checkpoint;
 		File dir = new File(folder);
@@ -192,6 +209,9 @@ public class Coach {
 		}
 	}
 
+	/**
+	 * Load training history to list from file specified in arguments
+	 */
 	public void loadTrainExamples() {
 		Path modelFile = Paths.get(this.args.load_folder_file[0], this.args.load_folder_file[1]);
 		File examplesFile = new File(modelFile.toString() + ".examples");

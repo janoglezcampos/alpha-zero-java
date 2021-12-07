@@ -2,7 +2,7 @@ package com.mcts;
 
 import java.util.LinkedList;
 
-import com.backend.Game;
+import com.logic.Game;
 import com.csp_group.utils.GameMatrix;
 import com.csp_group.utils.TrainExample;
 
