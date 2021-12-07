@@ -1,4 +1,4 @@
-package com.mtcs;
+package com.mcts;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -8,9 +8,9 @@ import com.backend.Game;
 import com.csp_group.utils.Arguments;
 import com.csp_group.utils.DistributedRandomNumberGenerator;
 import com.csp_group.utils.GameMatrix;
-import com.mtcs.Nnet.Prediction;
+import com.mcts.Nnet.Prediction;
 
-public class MTCS {
+public class MCTS {
     /*
     This class handles the MCTS tree.
     */
@@ -27,7 +27,7 @@ public class MTCS {
     Nnet nnet;
     Arguments args;
 	
-    public MTCS(Game game, Nnet nnet, Arguments args) {
+    public MCTS(Game game, Nnet nnet, Arguments args) {
         this.game = game;
         this.nnet = nnet;
         this.args = args;
@@ -69,7 +69,7 @@ public class MTCS {
             probs[bestAction] = (double) 1;
             return probs;
         }
-
+        //TODO
         //counts = [x ** (1. / temp) for x in counts];
         probs = normalizeArray(counts);
         return probs;
@@ -186,11 +186,10 @@ public class MTCS {
         }
 
         int a = best_act;
-        GameMatrix next_s;
-        int next_player;
-        
-		next_s, next_player = this.game.getNextState(canonicalBoard, 1, a);
-        next_s = this.game.getCanonicalForm(next_s, next_player);
+        GameMatrix next_s = null;
+        //TODO
+		//next_s, next_player = this.game.getNextState(canonicalBoard, 1, a);
+        //next_s = this.game.getCanonicalForm(next_s, next_player);
 
         Double v = this.search(next_s);
         String s_a = stateActionRepresentation(s,a);
