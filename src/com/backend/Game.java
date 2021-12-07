@@ -48,7 +48,7 @@ public class Game {
         return 0;
 	}
 
-    public GameMatrix  getNextState(int board, int player, int action) {
+    public GameMatrix  getNextState(GameMatrix board, int player, int action) {
         /*
         Input:
             board: current board
