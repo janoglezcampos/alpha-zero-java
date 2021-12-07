@@ -16,16 +16,16 @@ public class MCTS {
     */
 	private final double EPS = Math.pow(10, -8);
 
-	Map<String, Double> Qsa;  // stores Q values for s,a (as defined in the paper)
-	Map<String, Integer>  Nsa = new HashMap<String, Integer>();;  // stores #times edge s,a was visited
-	Map<String, Integer>  Ns;  // stores #times board s was visited
-    Map<String, Double[]> Ps = new HashMap<String, Double[]>();  // stores initial policy (returned by neural net)
-    Map<String, Integer> Es = new HashMap<String, Integer>();
-    Map<String, int[]>  Vs;  // stores game.getValidMoves for board s
+	private Map<String, Double> Qsa;  // stores Q values for s,a (as defined in the paper)
+	private Map<String, Integer>  Nsa = new HashMap<String, Integer>();;  // stores #times edge s,a was visited
+	private Map<String, Integer>  Ns;  // stores #times board s was visited
+	private Map<String, Double[]> Ps = new HashMap<String, Double[]>();  // stores initial policy (returned by neural net)
+	private Map<String, Integer> Es = new HashMap<String, Integer>();
+	private Map<String, int[]>  Vs;  // stores game.getValidMoves for board s
     
-    Game game;
-    Nnet nnet;
-    Arguments args;
+	private Game game;
+	private Nnet nnet;
+	private Arguments args;
 	
     public MCTS(Game game, Nnet nnet, Arguments args) {
         this.game = game;
@@ -33,11 +33,11 @@ public class MCTS {
         this.args = args;
     }
     
-    Double[] getActionProb(GameMatrix canonicalBoard){
+    public Double[] getActionProb(GameMatrix canonicalBoard){
     	return getActionProb(canonicalBoard, 1);
     }
     
-    Double[] getActionProb(GameMatrix canonicalBoard, int temp){
+    public Double[] getActionProb(GameMatrix canonicalBoard, int temp){
         /*
         This function performs numMCTSSims simulations of MCTS starting from
         canonicalBoard.
