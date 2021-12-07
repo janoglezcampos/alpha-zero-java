@@ -2,10 +2,7 @@ package com;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-
 import Jama.Matrix;
 
 import com.csp_group.GroupAlgorithm;
