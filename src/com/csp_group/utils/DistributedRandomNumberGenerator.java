@@ -33,7 +33,8 @@ public class DistributedRandomNumberGenerator {
         return 0;
     }
     
-    public static int randomValue(double[] distribution) {
+    
+    public static int randomValue(Double[] distribution) {
     	double rand = Math.random();
         double ratio = 1.0f / sumArray(distribution);
         double tempDist = 0;
@@ -60,9 +61,9 @@ public class DistributedRandomNumberGenerator {
     }
     
     
-    private static double sumArray(double[] array){
-    	double total = 0;
-    	for(double val : array) {
+    private static float sumArray(Double[] array){
+    	float total = 0;
+    	for(Double val : array) {
     		total += val;
     	}
     	return total;
