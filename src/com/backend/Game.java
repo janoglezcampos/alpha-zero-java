@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.csp_group.utils.GameMatrix;
+import com.csp_group.utils.Symetry;
 
 public class Game {
 
@@ -100,7 +101,7 @@ public class Game {
        return null;
     }
 
-    public List<GameMatrix> getSymmetries(GameMatrix board, int pi) {
+    public List<Symetry> getSymmetries(GameMatrix board, Double[] pi) {
         /*
         Input:
             board: current board
