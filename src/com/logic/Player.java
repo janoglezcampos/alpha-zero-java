@@ -1,4 +1,4 @@
-package com.backend;
+package com.logic;
 
 import com.csp_group.utils.Arguments;
 import com.csp_group.utils.GameMatrix;

@@ -1,4 +1,4 @@
-package com.backend;
+package com.logic;
 
 public class Board{
 
