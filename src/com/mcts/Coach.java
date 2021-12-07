@@ -16,15 +16,15 @@ public class Coach {
 	 * This class executes the this-play + learning. It uses the functions public
 	 * voidined in Game and NeuralNet. args are specified in main.py.
 	 */
-	Game game;
-	Nnet nnet;
-	Nnet pnet;
-	Arguments args;
-	Boolean skipFirstthisPlay;
-	LinkedList<TrainExample> trainExamplesHistory;
-	int curPlayer;
-	MCTS mcts;
-	Logger log = Logger.getLogger(Coach.class.getName());
+	private Game game;
+	private Nnet nnet;
+	private Nnet pnet;
+	private Arguments args;
+	private Boolean skipFirstthisPlay;
+	private LinkedList<TrainExample> trainExamplesHistory;
+	private int curPlayer;
+	private MCTS mcts;
+	private Logger log = Logger.getLogger(Coach.class.getName());
 
 	public Coach(Game game, Nnet nnet, Arguments args) {
 		this.game = game;
@@ -134,21 +134,25 @@ public class Coach {
 			// training new network, keeping a copy of the old one
 			this.nnet.save_checkpoint(this.args.checkpoint, "temp.pth.tar");
 			this.pnet.load_checkpoint(this.args.checkpoint, "temp.pth.tar");
-			MCTS pmcts = new MCTS(this.game, this.pnet, this.args);
+			//MCTS pmcts = new MCTS(this.game, this.pnet, this.args);
 
 			this.nnet.train(trainExamples);
-			MCTS nmcts = new MCTS(this.game, this.nnet, this.args);
+			//MCTS nmcts = new MCTS(this.game, this.nnet, this.args);
 
 			log.info("PITTING AGAINST PREVIOUS VERSION");
+			
+			Player p1 = new Player(this.game, this.pnet, this.args);
+			Player p2 = new Player(this.game, this.nnet, this.args);
+			
+			Arena arena = new Arena(p1,p2,this.game);
+			int[] returnList;
 
-			Arena arena = new Arena();
-			/*TODO
-			 * lambda x: np.argmax(pmcts.getActionProb(x, temp=0)), lambda x:
-			 * np.argmax(nmcts.getActionProb(x, temp=0)), this.game);
-			 */
 			int pwins = 0, nwins = 0, draws = 0;
-			// pwins, nwins, draws = arena.playGames(this.args.arenaCompare);
-
+			returnList = arena.playGames(this.args.arenaCompare, false);
+			pwins = returnList[0];
+			nwins = returnList[1];
+			draws = returnList[2];
+			
 			log.info(String.format("NEW/PREV WINS : %d / %d ; DRAWS : %d", nwins, pwins, draws));
 			if ((pwins + nwins == 0) || (nwins / (pwins + nwins) < this.args.updateThreshold)) {
 				log.info("REJECTING NEW MODEL");
@@ -159,19 +163,6 @@ public class Coach {
 				this.nnet.save_checkpoint(this.args.checkpoint, "best.pth.tar");
 			}
 		}
-	}
-
-	public static int argMax(Double... values) {
-		return argMax(values, 0, values.length);
-	}
-
-	public static int argMax(Double[] values, int from, int to) {
-		int argMax = from;
-		for (int i = from + 1; i < to; i++)
-			if (values[argMax] < values[i])
-				argMax = i;
-
-		return argMax;
 	}
 
 	public String getCheckpointFile(int iteration) {
